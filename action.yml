@@ -1,9 +1,9 @@
-name: kedro_deployment
-author: Waylon Walker // Juan José Alban
+name: kedro-action
+author: Juan Jose Alban
 description: Run kedro project
 inputs:
   python_version:
-    description: a Python version that is supported by pyenv
+    description: Last supported version on kedro (3.10 soon)
     default: '3.8'
   should_lint:
     description: runs `kedro lint`
@@ -25,7 +25,7 @@ inputs:
     default: true
   deploy_branch:
     description: branch to deploy static site to
-    default: pipeline_viz
+    default: kedro-action
   github_pat:
     description: >
       github personal access token
