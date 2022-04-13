@@ -2,18 +2,6 @@
 
 A GitHub Action to `lint`, `test`, `build-docs`, `package`, `static-viz`, and `run` your [kedro](https://github.com/quantumblacklabs/kedro) pipelines. Supports any Python version you'll give it (that is also supported by [pyenv](https://github.com/pyenv/pyenv)). 
 
-Inspired by [mariamrf/py-package-publish-action](https://github.com/mariamrf/py-package-publish-action) and [crazy-max/ghaction-github-pages](https://github.com/crazy-max/ghaction-github-pages).
-
-# Example
-
-Check out [WaylonWalker/default-kedro157](https://github.com/WaylonWalker/default-kedro157/) for a working example of the action.
-
-[![Static Viz](artwork/kedro-static-viz.png)](https://default-kedro-157.waylonwalker.com/)
-
-[![Docs](artwork/docs.png)](https://default-kedro-157-docs.netlify.com/)
-
-[![Test report](artwork/test-report.png)](https://default-kedro-157-test.netlify.com/)
-
 # Use
 
 ## Pre-requisits
@@ -64,7 +52,7 @@ name: kedro
 on:
   push:
     branches:
-      - master
+      - '*'
 
 jobs:
   kedro:
@@ -72,7 +60,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Kedro
-      uses: WaylonWalker/kedro-action@2.0.0
+      uses: ElCuboNegro/kedro-deployment@1.0.0
       with:
-        GITHUB_PAT: ${{ secrets.GITHUB_PAT }} # required for push to kedro-action branch
+        GITHUB_PAT: ${{ secrets.KEDRO_GITHUBACTIONS }}
+      should_run: True
 
+```
