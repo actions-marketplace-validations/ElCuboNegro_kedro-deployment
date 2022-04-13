@@ -33,7 +33,7 @@ inputs:
     default: null
   verbose:
     description: prints extra information for debugging
-    default: false
+    default: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
