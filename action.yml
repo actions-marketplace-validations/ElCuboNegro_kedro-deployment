@@ -1,5 +1,5 @@
-name: kedro-action
-author: Waylon Walker
+name: kedro_deployment
+author: Waylon Walker // Juan José Alban
 description: Run kedro project
 inputs:
   python_version:
@@ -25,7 +25,7 @@ inputs:
     default: true
   deploy_branch:
     description: branch to deploy static site to
-    default: kedro-action
+    default: pipeline_viz
   github_pat:
     description: >
       github personal access token
