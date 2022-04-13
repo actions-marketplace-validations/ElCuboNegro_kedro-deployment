@@ -1,4 +1,4 @@
-name: kedro-action
+name: kedro-deployment
 author: Juan Jose Alban
 description: Run kedro project
 inputs:
