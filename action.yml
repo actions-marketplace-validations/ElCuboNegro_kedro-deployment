@@ -3,7 +3,7 @@ author: Juan Jose Alban
 description: Run kedro project
 inputs:
   python_version:
-    description: Last supported version on kedro (3.10 soon)
+    description: a Python version that is supported by pyenv
     default: '3.8'
   should_lint:
     description: runs `kedro lint`
