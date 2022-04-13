@@ -19,7 +19,7 @@ inputs:
     default: true
   should_run:
     description: runs `kedro run`
-    default: false
+    default: true
   should_viz:
     description: creates a static site built on gatsby based on `kedro viz --save-pipeline pipeline.json`
     default: true
