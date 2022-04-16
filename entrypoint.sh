@@ -75,7 +75,12 @@ push_to_branch() {
 
         }
 
-install_python_version(){
+
+
+
+
+
+_python_version(){
     print_step "Install Python Version"
     pyenv install $INPUT_PYTHON_VERSION
     pyenv global $INPUT_PYTHON_VERSION
@@ -90,7 +95,7 @@ install_kedro(){
 
 install_project(){
     print_step "Install kedro project"
-    kedro install
+    pip install -r src/requirements.txt
 }
 
 kedro_lint(){
