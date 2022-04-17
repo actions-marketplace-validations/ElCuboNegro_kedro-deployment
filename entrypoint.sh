@@ -90,10 +90,13 @@ _python_version(){
 install_kedro(){
     print_step "Install kedro library"
     python -m pip install --upgrade pip
-    pip install kedro  
+    pip install kedro
+    pip install pip-tools
 }
 
 install_project(){
+    print_step "Compiling kedro project"
+    pip-compile --output-file src/requirements.in src/requirements.txt
     print_step "Install kedro project"
     pip install -r src/requirements.txt
 }
