@@ -4,36 +4,46 @@ description: Run kedro project
 inputs:
   python_version:
     description: a Python version that is supported by pyenv
+    required: true
     default: '3.8'
   should_lint:
     description: runs `kedro lint`
-    default: true
+    required: true
+    default: 'true'
   should_test:
     description: runs `kedro test`
-    default: true
+    required: true
+    default: 'true'
   should_build_docs:
     description: runs `kedro build-docs`
-    default: true
+    required: true
+    default: 'true'
   should_package:
     description: runs `kedro package`
-    default: true
+    required: true
+    default: 'true'
   should_run:
     description: runs `kedro run`
-    default: true
+    required: true
+    default: 'false'
   should_viz:
     description: creates a static site built on gatsby based on `kedro viz --save-pipeline pipeline.json`
-    default: true
+    required: true
+    default: 'true'
   deploy_branch:
     description: branch to deploy static site to
-    default: kedro-action
+    required: true
+    default: gh-pages
   github_pat:
     description: >
       github personal access token
       for help see https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-    default: null
+    required: true
+    default: ''
   verbose:
     description: prints extra information for debugging
-    default: true
+    required: false
+    default: 'false'
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -52,4 +62,4 @@ runs:
     - ${{ inputs.verbose }}
 branding:
   icon: 'git-branch'
-  color: 'black'
+  color: 'gray-dark'

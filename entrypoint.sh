@@ -76,10 +76,6 @@ push_to_branch() {
         }
 
 
-
-
-
-
 _python_version(){
     print_step "Install Python Version"
     pyenv install $INPUT_PYTHON_VERSION
@@ -175,8 +171,16 @@ echo -e "\nkedro-static-viz \n\n" && ls kedro-static-viz
 fi
 
  mkdir ~/kedro-action # files to be hosted will go here.
- status=0
- 
+ status = 0
+ install_kedro = 0
+ install_project = 0
+ lint_project = 0
+ test_project = 0
+ run_project = 0
+ build_docs = 0
+ package_project = 0
+ build_static_viz = 0
+ deploy_branch = 0
  
  
 ##### INSTALL PYTHON #####
@@ -192,6 +196,7 @@ if $INPUT_VERBOSE
 	then
 	install_kedro $INPUT_DEPLOY_BRANCH $ && success successfully installed kedro || fail failed to install kedro --exit
 	else
+    install_kedro = 1
 	install_kedro > logs/kedro_install.log 2>&1 || fail failed to install kedro --exit
 fi
 
@@ -200,6 +205,7 @@ if $INPUT_VERBOSE
 	then
 	install_project  && success successfully installed project || fail failed to install project --exit
 	else
+    install_project = 1
 	install_project > logs/project_install.log 2>&1 || fail failed to install project --exit
 fi
 
@@ -208,6 +214,7 @@ if $INPUT_VERBOSE
 	then
 	kedro_lint && success successfully linted || fail failed to lint --exit
 	else
+    lint_project = 1
 	kedro_lint > logs/lint.log 2>&1 && success successfully linted || fail failed to lint --exit
 fi
 
@@ -216,7 +223,9 @@ if $INPUT_VERBOSE
 	then
 	kedro_test && success successfully ran tests || fail failed to run tests --exit
 	else
+    kedro_test = 1
 	kedro_test > logs/test.log 2>&1 && success successfully ran tests || fail failed to run tests --exit
+
 fi
 
 ##### RUN PROJECT #####
@@ -224,6 +233,7 @@ if $INPUT_VERBOSE
 	then
 	kedro_run && success successfully ran pipeline || fail failed to run pipeline
 	else
+    run_project = 1
 	kedro_run > logs/run.log 2>&1 && success successfully ran pipeline || fail failed to run pipeline
 fi
 
@@ -232,6 +242,7 @@ if $INPUT_VERBOSE
 	then
 	kedro_build_docs && success successfully built docs || fail failed to build docs
 	else
+    build_docs = 1
 	kedro_build_docs > logs/build_docs.log 2>&1 && success successfully built docs || fail failed to build docs
 fi
 
@@ -240,6 +251,7 @@ if $INPUT_VERBOSE
 	then
 	kedro_package && success successfully packaged || fail failed to package
 	else
+    package_project = 1
 	kedro_package > logs/package.log 2>&1 && success successfully packaged || fail failed to package
 fi
 
@@ -248,6 +260,7 @@ if $INPUT_VERBOSE
 	then
 	kedro_viz && success successfully built visualization || fail failed to build visualization
 	else
+    build_static_viz = 1
 	kedro_viz > logs/static-viz.log 2>&1 && success successfully built visualization || fail failed to build visualization
 fi
 
@@ -257,6 +270,7 @@ if $INPUT_VERBOSE
 	then
 	push_to_branch $INPUT_DEPLOY_BRANCH ~/kedro-action && success successfully deployed to $INPUT_DEPLOY_BRANCH || fail failed to deploy to $INPUT_DEPLOY_BRANCH
 	else
+    deploy_branch = 1
 	push_to_branch $INPUT_DEPLOY_BRANCH ~/kedro-action > /dev/null 2>&1 && success successfully deployed to branch - $INPUT_DEPLOY_BRANCH || fail failed to deploy to branch - $INPUT_DEPLOY_BRANCH
 fi
 
