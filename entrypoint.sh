@@ -8,7 +8,17 @@ print_step(){
 }
 
 success(){
-    echo -e "✅ $@"
+    echo -e "✔️ $@"
+}
+
+status_checker(status, step){
+    if [ $status -ne 0 ]
+    then
+        echo -e "❌ $step"
+        exit 1
+    else
+        echo "✔️ $step"
+    fi
 }
 
 fail(){
@@ -273,5 +283,16 @@ if $INPUT_VERBOSE
     deploy_branch = 1
 	push_to_branch $INPUT_DEPLOY_BRANCH ~/kedro-action > /dev/null 2>&1 && success successfully deployed to branch - $INPUT_DEPLOY_BRANCH || fail failed to deploy to branch - $INPUT_DEPLOY_BRANCH
 fi
+
+status_checker(status, 'status')
+status_checker(install_kedro, 'installed kedro')
+status_checker(install_project, 'installed project')
+status_checker(lint_project, 'linted project')
+status_checker(test_project, 'tested project')
+status_checker(run_project, 'project')
+status_checker(build_docs, 'docs built')
+status_checker(package_project, 'project packaged')
+status_checker(build_static_viz, 'staticViz built')
+status_checker(deploy_branch, 'staticViz deployed on branch')
 
 exit $status
