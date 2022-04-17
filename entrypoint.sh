@@ -96,7 +96,7 @@ install_kedro(){
 
 install_project(){
     print_step "Compiling kedro project"
-    pip-compile --output-file src/requirements.in src/requirements.txt
+    pip-compile --output-file src/requirements.in ./src/requirements.txt
     print_step "Install kedro project"
     pip install -r src/requirements.txt
 }
